@@ -1,0 +1,42 @@
+name: 🐛 Bug
+description: Un comportement inattendu du robot, de l'interface ou du code
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Ce qui se passe
+      description: Description courte et factuelle.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Lancer `ros2 launch explorer_bringup ...`
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+  - type: dropdown
+    id: target
+    attributes:
+      label: Où ?
+      options: [Robot réel, Simulation, Steam Deck, CI]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version du dépôt
+      placeholder: "git rev-parse --short HEAD"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Journaux
+      description: Sans adresse IP, nom de réseau ni mot de passe.
+      render: shell

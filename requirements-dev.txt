@@ -1,0 +1,7 @@
+# Outils de développement (lint, typage, tests). Les dépendances ROS 2 viennent de rosdep.
+pytest>=8
+ruff>=0.6
+mypy>=1.10
+pyyaml>=6
+types-PyYAML
+pre-commit>=3
