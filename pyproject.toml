@@ -1,21 +1,6 @@
 # Configuration commune des outils qualité (ruff, mypy, pytest).
 # Les paquets ROS2 eux-mêmes sont décrits par leur package.xml / setup.py.
-
-[project]
-name = "explorer-1-workspace"
-version = "0.1.0"
-description = "Outillage qualité du dépôt explorer-1 (non installable)."
-requires-python = ">=3.10"
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=8",
-    "ruff>=0.6",
-    "mypy>=1.10",
-    "pyyaml>=6",
-    "types-PyYAML",
-    "pre-commit>=3",
-]
+# Dépendances de développement : requirements-dev.txt.
 
 [tool.ruff]
 line-length = 100
