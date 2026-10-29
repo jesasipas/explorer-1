@@ -147,7 +147,7 @@ CI verte avant fusion.
 ## Auteur
 
 **Thomas Blondel** — ingénieur data qui se forme à la robotique et à la vision par ordinateur.
-LinkedIn : [TODO : ajouter l'URL du profil]
+LinkedIn : www.linkedin.com/in/thomas-blondel-894a1a1b8
 
 ## Licence
 
