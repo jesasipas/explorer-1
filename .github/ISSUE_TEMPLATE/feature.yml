@@ -1,0 +1,24 @@
+name: ✨ Fonctionnalité
+description: Une nouvelle capacité ou une amélioration
+labels: ["type:feat"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Objectif
+      description: Quel problème cela résout-il ?
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Critères de fin
+      description: Comment saura-t-on que c'est terminé ?
+      placeholder: |
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Pistes techniques
