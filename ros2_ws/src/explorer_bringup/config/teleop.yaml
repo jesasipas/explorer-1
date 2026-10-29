@@ -1,0 +1,20 @@
+# Paramètres de téléopération.
+# [TODO jalon M2] Vérifier les index d'axes / boutons du Steam Deck avec `ros2 topic echo /joy`.
+
+joy_node:
+  ros__parameters:
+    deadzone: 0.0          # la zone morte est gérée par explorer_teleop
+    autorepeat_rate: 20.0  # Hz : republie l'état même sans mouvement (nécessaire au watchdog du robot)
+
+explorer_teleop:
+  ros__parameters:
+    axis_forward: 1
+    axis_strafe: 0
+    axis_turn: 3
+    invert_forward: false
+    invert_strafe: false
+    invert_turn: false
+    button_estop: 3
+    max_linear: 0.3    # m/s, prudent pour l'intérieur
+    max_angular: 1.0   # rad/s
+    deadzone: 0.08
