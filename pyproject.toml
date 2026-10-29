@@ -1,0 +1,41 @@
+# Configuration commune des outils qualité (ruff, mypy, pytest).
+# Les paquets ROS2 eux-mêmes sont décrits par leur package.xml / setup.py.
+
+[project]
+name = "explorer-1-workspace"
+version = "0.1.0"
+description = "Outillage qualité du dépôt explorer-1 (non installable)."
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.10",
+    "pyyaml>=6",
+    "types-PyYAML",
+    "pre-commit>=3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["ros2_ws/build", "ros2_ws/install", "ros2_ws/log"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+mypy_path = "ros2_ws/src/explorer_operator"
+packages = ["explorer_operator"]
+
+# Les bibliothèques ROS2 ne sont pas installées dans la CI Python pure.
+[[tool.mypy.overrides]]
+module = ["rclpy.*", "geometry_msgs.*", "sensor_msgs.*", "launch.*", "launch_ros.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["ros2_ws/src/explorer_operator/test"]
+pythonpath = ["ros2_ws/src/explorer_operator"]
