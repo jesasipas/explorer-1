@@ -1,0 +1,17 @@
+# Modèle de configuration réseau d'explorer-1.
+#
+# Copier ce fichier en `config/network.yaml` (ignoré par git) puis l'adapter :
+#   cp config/network.example.yaml config/network.yaml
+#
+# Ne jamais versionner d'adresse IP, de nom de réseau Wi-Fi ou de mot de passe.
+
+robot:
+  # Nom d'hôte ou adresse du robot sur le réseau local.
+  host: "explorer-1.local"
+
+ros:
+  # Doit être identique sur le robot et sur le Steam Deck (0 à 101).
+  domain_id: 42
+  # Couche de communication ROS2 : rmw_cyclonedds_cpp, rmw_fastrtps_cpp ou rmw_zenoh_cpp.
+  # Le choix définitif sera tranché par les mesures du jalon M1 (ADR 0002).
+  rmw_implementation: "rmw_cyclonedds_cpp"
