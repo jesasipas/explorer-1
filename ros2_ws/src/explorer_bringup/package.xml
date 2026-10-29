@@ -4,7 +4,7 @@
   <name>explorer_bringup</name>
   <version>0.1.0</version>
   <description>Fichiers de lancement et paramètres d'explorer-1 (frontière matérielle).</description>
-  <maintainer email="TODO@example.invalid">Thomas Blondel</maintainer>
+  <maintainer email="thomas.blondel@viacesi.fr">Thomas Blondel</maintainer>
   <license>MIT</license>
 
   <exec_depend>launch</exec_depend>

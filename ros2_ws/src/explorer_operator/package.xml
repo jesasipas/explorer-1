@@ -4,7 +4,7 @@
   <name>explorer_operator</name>
   <version>0.1.0</version>
   <description>Côté opérateur d'explorer-1 : configuration réseau, téléopération, interface.</description>
-  <maintainer email="TODO@example.invalid">Thomas Blondel</maintainer>
+  <maintainer email="thomas.blondel@viacesi.fr">Thomas Blondel</maintainer>
   <license>MIT</license>
 
   <exec_depend>rclpy</exec_depend>
