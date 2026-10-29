@@ -1,0 +1,39 @@
+# --- Configuration locale (jamais versionnée) ---
+config/network.yaml
+.env
+*.env
+
+# --- ROS2 / colcon ---
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Données produites par le robot ---
+maps/
+*.pgm
+*.posegraph
+*.data
+rosbags/
+*.db3
+*.mcap
+
+# --- Éditeurs / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
