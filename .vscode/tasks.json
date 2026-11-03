@@ -1,0 +1,43 @@
+{
+  // Tâches accessibles via Ctrl+Maj+P → « Tasks: Run Task », ou Ctrl+Maj+B pour la construction.
+  "version": "2.0.0",
+  "options": {
+    "shell": { "executable": "/bin/bash", "args": ["-c"] }
+  },
+  "tasks": [
+    {
+      "label": "colcon : construire",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && colcon build --symlink-install",
+      "options": { "cwd": "${workspaceFolder}/ros2_ws" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "colcon : nettoyer",
+      "type": "shell",
+      "command": "rm -rf build install log",
+      "options": { "cwd": "${workspaceFolder}/ros2_ws" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Vérifier (lint + typage + tests)",
+      "type": "shell",
+      "command": "ruff check . && ruff format --check . && mypy && pytest",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Formater le code",
+      "type": "shell",
+      "command": "ruff check --fix . && ruff format .",
+      "problemMatcher": []
+    },
+    {
+      "label": "ROS 2 : lister les topics",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && ros2 topic list",
+      "problemMatcher": []
+    }
+  ]
+}

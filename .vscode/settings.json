@@ -1,0 +1,61 @@
+{
+  // --- Fichiers ---
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.mypy_cache": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true
+  },
+  "search.exclude": {
+    "ros2_ws/build": true,
+    "ros2_ws/install": true,
+    "ros2_ws/log": true
+  },
+  "files.watcherExclude": {
+    "**/ros2_ws/build/**": true,
+    "**/ros2_ws/install/**": true,
+    "**/ros2_ws/log/**": true
+  },
+  "files.associations": {
+    "*.launch.py": "python",
+    "*.repos": "yaml"
+  },
+
+  // --- Python ---
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.extraPaths": [
+    "ros2_ws/src/explorer_operator",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [],
+
+  // Formatage et lint : ruff (mêmes règles que la CI, lues dans pyproject.toml).
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    },
+    "editor.rulers": [100]
+  },
+
+  // Typage : mypy strict, configuration lue dans pyproject.toml.
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.reportingScope": "workspace",
+
+  // --- YAML / XML ---
+  "[yaml]": { "editor.tabSize": 2 },
+  "[xml]": { "editor.tabSize": 2 },
+
+  // --- Orthographe : la documentation est en français ---
+  "cSpell.language": "fr,en",
+  "cSpell.words": ["colcon", "distrobox", "rclpy", "mecanum", "teleop", "lidar", "rosdep", "Zenoh"]
+}

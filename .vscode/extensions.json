@@ -1,0 +1,5 @@
+{
+  // Côté Windows, une seule extension suffit : elle ouvre le projet dans le conteneur,
+  // où toutes les autres extensions sont installées automatiquement (devcontainer.json).
+  "recommendations": ["ms-vscode-remote.remote-containers"]
+}
