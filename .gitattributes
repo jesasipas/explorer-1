@@ -1,0 +1,13 @@
+# Fins de ligne Unix dans le dépôt, même quand on édite sous Windows :
+# un script .sh ou un Dockerfile en CRLF casse dans le conteneur Linux.
+* text=auto eol=lf
+
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+*.png  binary
+*.jpg  binary
+*.gif  binary
+*.pgm  binary
+*.7z   binary
+*.zip  binary
