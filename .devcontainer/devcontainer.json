@@ -1,0 +1,36 @@
+// Environnement de développement VS Code (extension « Dev Containers »).
+// Guide d'installation sous Windows : docs/setup-dev-windows.md
+{
+  "name": "explorer-1 (ROS 2 Humble)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "ros",
+  "containerEnv": {
+    // Chemin du dépôt dans le conteneur, utilisé par ~/.bashrc pour sourcer le workspace.
+    "EXPLORER_WS": "${containerWorkspaceFolder}",
+    // Valeurs par défaut ; elles doivent correspondre à config/network.yaml et au robot.
+    "ROS_DOMAIN_ID": "42",
+    "RMW_IMPLEMENTATION": "rmw_cyclonedds_cpp",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      // Installées automatiquement dans le conteneur.
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.mypy-type-checker",
+        "charliermarsh.ruff",
+        "Ranch-Hand-Robotics.rde-ros-2",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml",
+        "bierner.markdown-mermaid",
+        "github.vscode-github-actions",
+        "streetsidesoftware.code-spell-checker-french"
+      ]
+    }
+  }
+}
