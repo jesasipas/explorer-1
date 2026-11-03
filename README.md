@@ -83,7 +83,17 @@ Détails : [`docs/architecture.md`](docs/architecture.md).
 
 ## Installation
 
-### 1. Cloner et configurer
+### Recommandé : VS Code + Dev Container
+
+Le dépôt fournit un environnement de développement complet (Ubuntu 22.04, ROS 2 Humble,
+outils qualité, extensions VS Code) dans `.devcontainer/`. Avec Docker et l'extension
+**Dev Containers** : `Ctrl+Maj+P` → *Dev Containers: Clone Repository in Container Volume…*
+
+Guide pas à pas pour Windows : [`docs/setup-dev-windows.md`](docs/setup-dev-windows.md).
+
+### Sans conteneur
+
+#### 1. Cloner et configurer
 
 ```bash
 git clone https://github.com/jesasipas/explorer-1.git
@@ -91,7 +101,7 @@ cd explorer-1
 cp config/network.example.yaml config/network.yaml   # puis adapter (fichier ignoré par git)
 ```
 
-### 2. Outils de développement (n'importe quel PC)
+#### 2. Outils de développement (n'importe quel PC)
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -100,7 +110,7 @@ pre-commit install
 pytest && ruff check . && mypy
 ```
 
-### 3. Environnement ROS 2 sur le Steam Deck
+#### 3. Environnement ROS 2 sur le Steam Deck
 
 Voir [`docs/setup-steamdeck.md`](docs/setup-steamdeck.md) (conteneur distrobox) puis :
 
@@ -128,6 +138,8 @@ ros2 launch explorer_bringup teleop.launch.py cmd_vel_topic:=/cmd_vel
 
 ```
 explorer-1/
+├── .devcontainer/          # environnement de développement VS Code (ROS 2 Humble)
+├── .vscode/                # réglages, tâches et extensions partagés
 ├── config/                 # modèle de configuration réseau (network.yaml reste local)
 ├── docker/                 # environnement ROS 2 Humble (distrobox)
 ├── docs/                   # architecture, matériel, mise en route, décisions (ADR), mesures
