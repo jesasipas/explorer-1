@@ -21,7 +21,8 @@ Dépôt propre, outillage qualité, CI, documentation migrée depuis Notion, con
 ## M2 — Téléopération sûre
 - Nœud de sécurité **sur le robot** : arrêt si plus de commande (environ 300 ms), arrêt sur obstacle proche
 - Vérification du mapping manette du Steam Deck
-- Interface PySide6 : vidéo, télémétrie (batterie, réseau), arrêt d'urgence
+- Interface PySide6 : vidéo, télémétrie (batterie, réseau), arrêt d'urgence,
+  d'après la maquette de référence ([`docs/maquette/`](maquette/README.md))
 
 ## M3 — Cartographie 2D
 - slam_toolbox configuré pour le robot

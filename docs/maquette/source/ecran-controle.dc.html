@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>explorer-1 — Écran de contrôle</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#080B10}
+a{color:#22D3EE}a:hover{color:#67E8F9}
+@keyframes sweep{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.sweep{animation:sweep 3.2s linear infinite}
+.blink{animation:blink 1.4s ease-in-out infinite}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #F8FAFC;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 1280px; height: 800px; box-sizing: border-box; display: flex; flex-direction: column; background: #080B10; color: #E6EDF3; font-family: Barlow, system-ui, sans-serif; overflow: hidden">
+
+  <!-- Barre d'état -->
+  <header style="height: 64px; flex-shrink: 0; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; gap: 16px; background: #0E131A; border-bottom: 1px solid #1F2937">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="11" rx="2.5"></rect><circle cx="9" cy="12.5" r="1.4"></circle><circle cx="15" cy="12.5" r="1.4"></circle><path d="M12 3v4M7 18v2M17 18v2"></path></svg>
+      <div style="display: flex; flex-direction: column; line-height: 1">
+        <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.02em">explorer-1</span>
+        <span style="font-size: 12px; color: #94A3B8; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px">Téléopération</span>
+      </div>
+    </div>
+
+    <div style="width: 1px; height: 32px; background: #1F2937"></div>
+
+    <div style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 18px; background: {{robotChipBg}}; border: 1px solid {{robotChipBorder}}">
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: {{robotDot}}"></span>
+      <span style="font-size: 14px; font-weight: 600">Robot</span>
+      <span style="font-size: 14px; color: #CBD5E1">{{robotLabel}}</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 18px; background: #0F2A2F; border: 1px solid #155E67">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h12a4 4 0 0 1 3.9 4.9l-.8 3.4a2 2 0 0 1-3.5.8L15.5 16h-7l-2.1 2.1a2 2 0 0 1-3.5-.8l-.8-3.4A4 4 0 0 1 6 9z"></path><path d="M8 11.5v3M6.5 13h3M16 12.5h.01M18 14h.01"></path></svg>
+      <span style="font-size: 14px; font-weight: 600">Manette</span>
+      <span style="font-size: 14px; color: #CBD5E1">connectée</span>
+    </div>
+
+    <div style="flex-grow: 1"></div>
+
+    <div style="display: flex; align-items: center; gap: 10px" aria-label="Qualité réseau : {{netQuality}}">
+      <div style="display: flex; align-items: flex-end; gap: 3px; height: 22px">
+        <sc-for list="{{netBars}}" as="b" hint-placeholder-count="4">
+          <span style="width: 5px; height: {{b.h}}px; border-radius: 1px; background: {{b.color}}"></span>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-direction: column; line-height: 1.1">
+        <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Réseau</span>
+        <span style="font-size: 15px; font-weight: 600; color: {{netTextColor}}">{{netLabel}}</span>
+      </div>
+    </div>
+
+    <div style="width: 1px; height: 32px; background: #1F2937"></div>
+
+    <div style="display: flex; align-items: center; gap: 10px" aria-label="Batterie {{batPct}} %">
+      <div style="display: flex; align-items: center">
+        <div style="width: 40px; height: 20px; box-sizing: border-box; border: 2px solid {{batColor}}; border-radius: 4px; padding: 2px">
+          <div style="width: {{batFill}}%; height: 100%; border-radius: 1px; background: {{batColor}}"></div>
+        </div>
+        <div style="width: 3px; height: 8px; border-radius: 0 2px 2px 0; background: {{batColor}}"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; line-height: 1.1">
+        <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Batterie</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: {{batTextColor}}">{{batVolt}} V · {{batPct}} %</span>
+      </div>
+    </div>
+
+    <div style="width: 1px; height: 32px; background: #1F2937"></div>
+
+    <div style="display: flex; flex-direction: column; line-height: 1.1; align-items: flex-end">
+      <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Mission</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600">00:12:47</span>
+    </div>
+  </header>
+
+  <!-- Corps -->
+  <div style="flex-grow: 1; min-height: 0; box-sizing: border-box; padding: 16px; display: flex; gap: 16px">
+
+    <!-- Vidéo -->
+    <section aria-label="Flux vidéo de la caméra" style="flex-grow: 1; min-width: 0; position: relative; border-radius: 12px; overflow: hidden; background: #0C1117; border: 1px solid #1F2937">
+      <svg width="100%" height="100%" viewBox="0 0 932 704" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0">
+        <rect width="932" height="704" fill="#0C1117"></rect>
+        <polygon points="0,0 300,250 632,250 932,0" fill="#10161E"></polygon>
+        <polygon points="0,704 300,430 632,430 932,704" fill="#121A23"></polygon>
+        <polygon points="300,250 632,250 632,430 300,430" fill="#0A0F14"></polygon>
+        <polygon points="560,262 612,256 612,426 560,422" fill="#151E28"></polygon>
+        <g stroke="#1C2733" stroke-width="1.5" fill="none">
+          <line x1="0" y1="0" x2="300" y2="250"></line><line x1="932" y1="0" x2="632" y2="250"></line>
+          <line x1="0" y1="704" x2="300" y2="430"></line><line x1="932" y1="704" x2="632" y2="430"></line>
+          <line x1="300" y1="250" x2="300" y2="430"></line><line x1="632" y1="250" x2="632" y2="430"></line>
+          <line x1="150" y1="567" x2="782" y2="567"></line><line x1="225" y1="499" x2="707" y2="499"></line><line x1="262" y1="465" x2="670" y2="465"></line>
+          <line x1="466" y1="430" x2="466" y2="704"></line><line x1="383" y1="430" x2="233" y2="704"></line><line x1="549" y1="430" x2="699" y2="704"></line>
+        </g>
+        <polygon points="520,520 640,520 652,600 508,600" fill="#1A2430" stroke="#2A3746" stroke-width="1.5"></polygon>
+        <polygon points="508,600 652,600 652,640 508,640" fill="#151E28" stroke="#2A3746" stroke-width="1.5"></polygon>
+      </svg>
+
+      <!-- HUD -->
+      <div style="position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; align-items: center">
+        <span style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 6px; background: rgba(8,11,16,0.78); font-size: 13px; color: #CBD5E1">
+          <span class="blink" style="width: 8px; height: 8px; border-radius: 4px; background: {{liveDot}}"></span>
+          Caméra avant · 640×480 · {{fps}}
+        </span>
+      </div>
+
+      <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; margin-left: -32px; margin-top: -32px">
+        <g stroke="#E6EDF3" stroke-opacity="0.55" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M32 6v14M32 44v14M6 32h14M44 32h14"></path><circle cx="32" cy="32" r="3"></circle>
+        </g>
+      </svg>
+
+      <sc-if value="{{showEstopBanner}}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="position: absolute; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; justify-content: center; gap: 12px; background: #C8303A; color: #FFFFFF; font-size: 18px; font-weight: 700; letter-spacing: 0.04em">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z"></path><path d="M8 12h8"></path></svg>
+          ARRÊT D'URGENCE ACTIF · MOTEURS COUPÉS
+        </div>
+      </sc-if>
+
+      <sc-if value="{{showLowBatBanner}}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="position: absolute; top: 64px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 8px; background: #3A2A05; border: 1px solid #FBBF24; color: #FDE68A; font-size: 15px; font-weight: 600">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 21h20z"></path><path d="M12 10v5M12 18h.01"></path></svg>
+          Batterie faible : prévoir le retour au point de départ
+        </div>
+      </sc-if>
+
+      <sc-if value="{{showLost}}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; box-sizing: border-box; padding-bottom: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(8,11,16,0.82)">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.7 5.1A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 3.5-2.2M15 10.5a10 10 0 0 1 4 2M8.5 16a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"></path></svg>
+          <span style="font-size: 22px; font-weight: 700">Liaison perdue</span>
+          <span style="font-size: 15px; color: #CBD5E1">Le robot s'est arrêté par sécurité. Reconnexion en cours…</span>
+        </div>
+      </sc-if>
+
+      <!-- Mini-carte lidar -->
+      <div aria-label="Mini-carte lidar, portée {{rangeLabel}} mètres" style="position: absolute; right: 16px; bottom: 16px; width: 288px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: rgba(8,11,16,0.86); border: 1px solid #1F2937; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Lidar 360°</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #CBD5E1">portée {{rangeLabel}} m</span>
+        </div>
+        <div style="position: relative; width: 264px; height: 264px; border-radius: 132px; overflow: hidden; background: #0A1016; border: 1px solid #1F2937">
+          <div style="position: absolute; left: 44px; top: 44px; width: 176px; height: 176px; box-sizing: border-box; border-radius: 88px; border: 1px solid #1C2733"></div>
+          <div style="position: absolute; left: 88px; top: 88px; width: 88px; height: 88px; box-sizing: border-box; border-radius: 44px; border: 1px solid #1C2733"></div>
+          <div style="position: absolute; left: 131px; top: 0; width: 1px; height: 264px; background: #16202B"></div>
+          <div style="position: absolute; left: 0; top: 131px; width: 264px; height: 1px; background: #16202B"></div>
+          <sc-if value="{{sweepOn}}" hint-placeholder-val="{{ true }}">
+            <div class="sweep" style="position: absolute; inset: 0; border-radius: 132px; background: conic-gradient(from 0deg, rgba(34,211,238,0.22), rgba(34,211,238,0) 55deg, rgba(34,211,238,0) 360deg)"></div>
+          </sc-if>
+          <sc-for list="{{points}}" as="p" hint-placeholder-count="40">
+            <span style="position: absolute; left: {{p.x}}px; top: {{p.y}}px; width: 4px; height: 4px; border-radius: 2px; background: {{p.c}}"></span>
+          </sc-for>
+          <div style="position: absolute; left: 124px; top: 122px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 18px solid #F8FAFC"></div>
+          <span style="position: absolute; left: 136px; top: 46px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #94A3B8">{{ring2}}</span>
+          <span style="position: absolute; left: 136px; top: 90px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #94A3B8">{{ring1}}</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 14px">
+          <span style="color: #CBD5E1">Obstacle le plus proche</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: {{nearColor}}">{{nearLabel}}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panneau de commande -->
+    <aside aria-label="Commandes" style="width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px">
+
+      <button type="button" onClick="{{toggleEstop}}" aria-pressed="{{estopPressed}}" style="height: 132px; border-radius: 12px; border: 3px solid #E5484D; background: {{estopBg}}; color: {{estopFg}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="{{estopFg}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z"></path><path d="M12 7v6M12 16.5h.01"></path></svg>
+        <span style="font-size: 22px; font-weight: 700; letter-spacing: 0.04em">{{estopTitle}}</span>
+        <span style="font-size: 14px; opacity: 0.9">{{estopHint}}</span>
+      </button>
+
+      <div style="border-radius: 12px; background: #0E131A; border: 1px solid #1F2937; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Niveau de vitesse</span>
+          <span style="font-size: 13px; color: #94A3B8">R2 + · L2 −</span>
+        </div>
+        <div role="group" aria-label="Niveau de vitesse" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+          <sc-for list="{{levels}}" as="l" hint-placeholder-count="5">
+            <button type="button" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" aria-label="Niveau {{l.n}}" style="height: 48px; border-radius: 8px; border: 1px solid {{l.border}}; background: {{l.bg}}; color: {{l.fg}}; font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600">{{l.n}}</button>
+          </sc-for>
+        </div>
+        <span style="font-size: 14px; color: #CBD5E1">Max <span style="font-family: 'JetBrains Mono', monospace">{{maxLinLabel}} m/s · {{maxAngLabel}} rad/s</span></span>
+      </div>
+
+      <div style="border-radius: 12px; background: #0E131A; border: 1px solid #1F2937; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Consignes</span>
+          <span style="font-size: 13px; font-weight: 600; color: {{motionColor}}">{{motionLabel}}</span>
+        </div>
+        <sc-for list="{{axes}}" as="a" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between">
+              <span style="font-size: 14px; color: #CBD5E1"><span style="font-weight: 700; color: #E6EDF3">{{a.code}}</span> · {{a.name}}</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600; color: {{a.valColor}}">{{a.value}} <span style="font-size: 12px; color: #94A3B8">{{a.unit}}</span></span>
+            </div>
+            <div style="position: relative; height: 6px; border-radius: 3px; background: #1A2330">
+              <div style="position: absolute; left: 50%; top: -3px; width: 1px; height: 12px; background: #334155"></div>
+              <div style="position: absolute; left: {{a.left}}%; width: {{a.width}}%; top: 0; height: 6px; border-radius: 3px; background: #22D3EE"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="border-radius: 12px; background: #0E131A; border: 1px solid #1F2937; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <span style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em">Portée lidar (m)</span>
+          <span style="font-size: 13px; color: #94A3B8">L1 − · R1 +</span>
+        </div>
+        <div role="group" aria-label="Portée de la mini-carte" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+          <sc-for list="{{zooms}}" as="z" hint-placeholder-count="5">
+            <button type="button" onClick="{{z.pick}}" aria-pressed="{{z.pressed}}" aria-label="Portée {{z.label}} mètres" style="height: 48px; border-radius: 8px; border: 1px solid {{z.border}}; background: {{z.bg}}; color: {{z.fg}}; font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600">{{z.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex-grow: 1"></div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #CBD5E1; padding: 0 4px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 24px; height: 24px; border-radius: 12px; border: 1px solid #475569; font-weight: 700; color: #E6EDF3">Y</span>
+          <span>Arrêt d'urgence</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 24px; padding: 0 8px; border-radius: 12px; border: 1px solid #475569; font-weight: 700; font-size: 12px; color: #E6EDF3">Joy D</span>
+          <span>Avancer, reculer, tourner</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"etat":{"editor":"enum","options":["En mouvement","À l&#39;arrêt","Batterie faible","Liaison perdue"],"default":"En mouvement","section":"Démo"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { estop: false, level: 2, zoom: 1 };
+  }
+
+  renderVals() {
+    var etat = this.props.etat || 'En mouvement';
+    var lost = etat === 'Liaison perdue';
+    var lowbat = etat === 'Batterie faible';
+    var idle = etat === "À l'arrêt";
+    var estop = this.state.estop;
+    var self = this;
+    var fmt = function (v, d) { return (Math.abs(v) < 0.0005 ? 0 : v).toFixed(d).replace('.', ','); };
+
+    // Vitesse
+    var level = this.state.level;
+    var maxLin = 0.06 * level;
+    var maxAng = 0.2 * level;
+    var moving = !lost && !idle && !estop;
+    var vx = moving ? 0.8 * maxLin : 0;
+    var vy = moving ? 0.15 * maxLin : 0;
+    var wz = moving ? -0.3 * maxAng : 0;
+    var bar = function (v, max) {
+      var f = Math.max(-1, Math.min(1, max ? v / max : 0));
+      return { left: f >= 0 ? 50 : 50 + f * 50, width: Math.abs(f) * 50 };
+    };
+    var mkAxis = function (code, name, v, max, unit) {
+      var b = bar(v, max);
+      return { code: code, name: name, value: (v > 0 ? '+' : v < 0 ? '−' : ' ') + fmt(Math.abs(v), 2), unit: unit,
+        left: b.left, width: b.width, valColor: v !== 0 ? '#22D3EE' : '#E6EDF3' };
+    };
+    var axes = [
+      mkAxis('VX', 'avant', vx, maxLin, 'm/s'),
+      mkAxis('VY', 'latéral', vy, maxLin, 'm/s'),
+      mkAxis('WZ', 'rotation', wz, maxAng, 'rad/s')
+    ];
+
+    var levels = [1, 2, 3, 4, 5].map(function (n) {
+      var on = n === level;
+      return { n: n, pressed: on ? 'true' : 'false', bg: on ? '#22D3EE' : '#121923', fg: on ? '#04222A' : '#E6EDF3',
+        border: on ? '#22D3EE' : '#2A3746', pick: function () { self.setState({ level: n }); } };
+    });
+
+    // Lidar
+    var ZOOMS = [1.5, 3, 5, 8, 12];
+    var range = ZOOMS[this.state.zoom];
+    var zooms = ZOOMS.map(function (z, i) {
+      var on = i === self.state.zoom;
+      return { label: fmt(z, z % 1 ? 1 : 0), pressed: on ? 'true' : 'false', bg: on ? '#22D3EE' : '#121923',
+        fg: on ? '#04222A' : '#E6EDF3', border: on ? '#22D3EE' : '#2A3746', pick: function () { self.setState({ zoom: i }); } };
+    });
+    var segs = [
+      [-3, 1.1, 5, 1.1], [-3, -1.3, 2.2, -1.3], [3.2, -1.3, 5, -1.3], [5, -1.3, 5, 1.1],
+      [3.2, -1.3, 3.2, -3.4], [2.2, -1.3, 2.2, -3.4],
+      [1.4, 0.2, 1.4, 0.6], [1.4, 0.2, 1.9, 0.2], [1.9, 0.2, 1.9, 0.6], [1.4, 0.6, 1.9, 0.6],
+      [-3, -1.3, -3, 1.1]
+    ];
+    var R = 128, C = 132, scale = R / range;
+    var points = [];
+    var near = 99;
+    if (!lost) {
+      segs.forEach(function (s) {
+        var len = Math.hypot(s[2] - s[0], s[3] - s[1]);
+        var n = Math.max(1, Math.round(len / 0.14));
+        for (var k = 0; k <= n; k++) {
+          var f = s[0] + (s[2] - s[0]) * k / n;
+          var l = s[1] + (s[3] - s[1]) * k / n;
+          var d = Math.hypot(f, l);
+          if (d > range || d < 0.15) continue;
+          near = Math.min(near, d);
+          var x = C - l * scale, y = C - f * scale;
+          var col = d < 0.5 ? '#F87171' : d < 1.5 ? '#FBBF24' : '#22D3EE';
+          points.push({ x: (x - 2).toFixed(1), y: (y - 2).toFixed(1), c: col });
+        }
+      });
+    }
+    var nearOk = near < 99;
+
+    // Batterie
+    var volt = lowbat ? 6.71 : idle ? 7.64 : lost ? 7.58 : 7.62;
+    var pct = Math.round(Math.max(0, Math.min(1, (volt - 6.4) / 2.0)) * 100);
+    var batColor = pct <= 20 ? '#F87171' : pct <= 40 ? '#FBBF24' : '#22D3EE';
+
+    // Réseau
+    var lat = lost ? null : lowbat ? 41 : idle ? 16 : 18;
+    var nb = lat === null ? 0 : lat < 20 ? 4 : lat < 50 ? 3 : lat < 100 ? 2 : lat < 200 ? 1 : 0;
+    var quality = lat === null ? 'déconnecté' : ['mauvais', 'mauvais', 'moyen', 'bon', 'excellent'][nb];
+    var netBars = [8, 12, 17, 22].map(function (h, i) {
+      return { h: h, color: i < nb ? (nb >= 3 ? '#22D3EE' : '#FBBF24') : '#2A3746' };
+    });
+
+    return {
+      robotLabel: lost ? 'déconnecté' : 'connecté',
+      robotDot: lost ? '#FBBF24' : '#22D3EE',
+      robotChipBg: lost ? '#3A2A05' : '#0F2A2F',
+      robotChipBorder: lost ? '#B7791F' : '#155E67',
+      netBars: netBars,
+      netQuality: quality,
+      netLabel: lat === null ? 'Déconnecté' : lat + ' ms · ' + quality,
+      netTextColor: lat === null ? '#FBBF24' : '#E6EDF3',
+      batVolt: fmt(volt, 2),
+      batPct: pct,
+      batFill: pct,
+      batColor: batColor,
+      batTextColor: pct <= 20 ? '#FCA5A5' : '#E6EDF3',
+      liveDot: lost ? '#FBBF24' : '#F87171',
+      fps: lost ? 'aucune image' : '30 i/s',
+      showEstopBanner: estop,
+      showLowBatBanner: lowbat && !estop,
+      showLost: lost,
+      sweepOn: !lost,
+      points: points,
+      rangeLabel: fmt(range, range % 1 ? 1 : 0),
+      ring1: fmt(range / 3, 1) + ' m',
+      ring2: fmt(range * 2 / 3, 1) + ' m',
+      nearLabel: lost ? '—' : nearOk ? fmt(near, 2) + ' m' : 'aucun',
+      nearColor: !nearOk || lost ? '#E6EDF3' : near < 0.5 ? '#FCA5A5' : near < 1.5 ? '#FDE68A' : '#E6EDF3',
+      toggleEstop: function () { self.setState({ estop: !self.state.estop }); },
+      estopPressed: estop ? 'true' : 'false',
+      estopBg: estop ? '#C8303A' : '#1A0C0E',
+      estopFg: estop ? '#FFFFFF' : '#FCA5A5',
+      estopTitle: estop ? 'ARRÊTÉ' : "ARRÊT D'URGENCE",
+      estopHint: estop ? 'Appuyer pour réarmer' : 'Bouton Y de la manette',
+      levels: levels,
+      maxLinLabel: fmt(maxLin, 2),
+      maxAngLabel: fmt(maxAng, 1),
+      axes: axes,
+      motionLabel: estop ? 'Bloquées' : lost ? 'Robot arrêté' : moving ? 'En mouvement' : 'À l’arrêt',
+      motionColor: estop ? '#FCA5A5' : lost ? '#FDE68A' : moving ? '#22D3EE' : '#94A3B8',
+      zooms: zooms
+    };
+  }
+}
+</script>
+</body>
+</html>

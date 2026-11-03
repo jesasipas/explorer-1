@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>explorer-1 — Système visuel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#080B10}
+a{color:#22D3EE}a:hover{color:#67E8F9}
+</style>
+</helmet>
+<div style="width: 880px; height: 1000px; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 28px; background: #080B10; color: #E6EDF3; font-family: Barlow, system-ui, sans-serif">
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 32px; font-weight: 700">Système visuel</h1>
+    <p style="margin: 0; font-size: 16px; color: #CBD5E1">Thème sombre « cockpit » pour le Steam Deck : contraste élevé, cibles tactiles de 48 px minimum, jamais d'information portée par la seule couleur.</p>
+  </div>
+
+  <section aria-labelledby="t-couleurs" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="t-couleurs" style="margin: 0; font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Couleurs</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{colors}}" as="c" hint-placeholder-count="8">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="height: 56px; border-radius: 8px; background: {{c.hex}}; border: 1px solid #2A3746"></div>
+          <div style="display: flex; flex-direction: column; line-height: 1.25">
+            <span style="font-size: 15px; font-weight: 600">{{c.name}}</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #94A3B8">{{c.token}} · {{c.hex}}</span>
+            <span style="font-size: 13px; color: #CBD5E1">{{c.use}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-typo" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="t-typo" style="margin: 0; font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Typographie</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+      <div style="border-radius: 12px; background: #0E131A; border: 1px solid #1F2937; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 28px; font-weight: 700">Barlow</span>
+        <span style="font-size: 14px; color: #CBD5E1">Textes et libellés. Titres 20–22 px gras, texte 14–16 px, étiquettes 12–13 px en capitales espacées.</span>
+      </div>
+      <div style="border-radius: 12px; background: #0E131A; border: 1px solid #1F2937; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 600">+0,10 m/s</span>
+        <span style="font-size: 14px; color: #CBD5E1">JetBrains Mono pour toutes les valeurs chiffrées : chiffres de largeur fixe, lecture stable quand ils changent.</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-comp" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="t-comp" style="margin: 0; font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Composants et états</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <button type="button" style="height: 72px; border-radius: 12px; border: 3px solid #E5484D; background: #1A0C0E; color: #FCA5A5; font-family: Barlow, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.04em">ARRÊT D'URGENCE</button>
+        <button type="button" style="height: 72px; border-radius: 12px; border: 3px solid #E5484D; background: #C8303A; color: #FFFFFF; font-family: Barlow, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.04em">ARRÊTÉ</button>
+        <span style="font-size: 13px; color: #CBD5E1">Arrêt d'urgence : armé / déclenché. Toujours visible, libellé explicite en plus de la couleur.</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+          <button type="button" aria-pressed="false" style="height: 48px; border-radius: 8px; border: 1px solid #2A3746; background: #121923; color: #E6EDF3; font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">1</button>
+          <button type="button" aria-pressed="true" style="height: 48px; border-radius: 8px; border: 1px solid #22D3EE; background: #22D3EE; color: #04222A; font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">2</button>
+          <button type="button" aria-pressed="false" style="height: 48px; border-radius: 8px; border: 1px solid #2A3746; background: #121923; color: #E6EDF3; font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 600">3</button>
+        </div>
+        <span style="font-size: 13px; color: #CBD5E1">Sélecteur segmenté (vitesse, portée lidar). Cible 48 px, état actif plein.</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 16px; background: #0F2A2F; border: 1px solid #155E67; font-size: 14px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #22D3EE"></span><span style="font-weight: 600">Robot</span> connecté</div>
+          <div style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 16px; background: #3A2A05; border: 1px solid #B7791F; font-size: 14px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #FBBF24"></span><span style="font-weight: 600">Robot</span> déconnecté</div>
+        </div>
+        <span style="font-size: 13px; color: #CBD5E1">Pastilles de connexion : texte d'état toujours écrit.</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-seuils" style="display: flex; flex-direction: column; gap: 10px">
+    <h2 id="t-seuils" style="margin: 0; font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Seuils</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; font-size: 14px; color: #CBD5E1">
+      <div><span style="font-weight: 700; color: #E6EDF3">Batterie LiPo 2S</span><br>6,4 V = 0 % · 8,4 V = 100 %<br>≤ 40 % ambre · ≤ 20 % rouge + bandeau</div>
+      <div><span style="font-weight: 700; color: #E6EDF3">Réseau (latence)</span><br>&lt; 20 ms 4 barres · &lt; 50 ms 3<br>&lt; 100 ms 2 · &lt; 200 ms 1 · sinon 0</div>
+      <div><span style="font-weight: 700; color: #E6EDF3">Lidar (distance)</span><br>&lt; 0,5 m rouge · &lt; 1,5 m ambre<br>au-delà cyan · portées 1,5 à 12 m</div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":880,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      colors: [
+        { name: 'Fond', token: 'bg', hex: '#080B10', use: 'Arrière-plan général' },
+        { name: 'Surface', token: 'surface', hex: '#0E131A', use: 'Panneaux, barre d’état' },
+        { name: 'Bordure', token: 'line', hex: '#1F2937', use: 'Séparateurs, contours' },
+        { name: 'Texte', token: 'text', hex: '#E6EDF3', use: 'Texte principal' },
+        { name: 'Accent', token: 'accent', hex: '#22D3EE', use: 'Actif, nominal, sélection' },
+        { name: 'Attention', token: 'warn', hex: '#FBBF24', use: 'Batterie basse, liaison' },
+        { name: 'Danger', token: 'danger', hex: '#F87171', use: 'Obstacle proche, critique' },
+        { name: 'Arrêt', token: 'estop', hex: '#C8303A', use: 'Arrêt d’urgence uniquement' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

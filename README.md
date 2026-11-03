@@ -62,6 +62,14 @@ flowchart LR
 
 Détails : [`docs/architecture.md`](docs/architecture.md).
 
+## Maquette de l'interface
+
+![Maquette de l'interface de contrôle sur Steam Deck](docs/maquette/ecran-controle.gif)
+
+Interface opérateur prévue pour le jalon M2 (maquette, pas encore codée) : vidéo, mini-carte
+lidar, télémétrie, arrêt d'urgence. Spécification complète et états :
+[`docs/maquette/`](docs/maquette/README.md).
+
 ## Matériel
 
 | Élément | Modèle |
