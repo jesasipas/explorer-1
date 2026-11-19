@@ -1,0 +1,16 @@
+[package]
+name = "explorer-ui"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.81"
+publish = false
+
+[dependencies]
+eframe = "0.37.0"
+egui = "0.37.0"
+
+[dev-dependencies]
+egui_kittest = "0.37.0"
+
+[profile.release]
+opt-level = 2

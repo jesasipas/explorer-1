@@ -40,7 +40,7 @@ portables, ils migreront sur le robot avant le jalon M5 ([ADR 0004](docs/decisio
 ```mermaid
 flowchart LR
     subgraph Deck["Steam Deck — distrobox ROS 2 Humble"]
-        UI["App opérateur<br/>(PySide6)"]
+        UI["App opérateur<br/>(Rust/egui)"]
         TELEOP["explorer_teleop"]
         SLAM["slam_toolbox<br/>(M3)"]
         NAV["Nav2 + exploration<br/>(M4)"]
@@ -86,7 +86,7 @@ lidar, télémétrie, arrêt d'urgence. Spécification complète et états :
 - **ROS 2 Humble** sur le robot (pile HiWonder) et sur le Steam Deck (conteneur distrobox)
 - **Python 3.10** pour le code d'explorer-1 ; C++ seulement si les mesures l'exigent ([ADR 0005](docs/decisions/0005-python-par-defaut.md))
 - **slam_toolbox**, **Nav2** pour la cartographie et la navigation
-- **PySide6** pour l'interface opérateur ([ADR 0006](docs/decisions/0006-pyside6.md))
+- **Rust/egui** pour l'interface opérateur ([ADR 0007](docs/decisions/0007-interface-operateur-rust-egui.md))
 - Qualité : ruff, mypy (strict), pytest, pre-commit, GitHub Actions
 
 ## Installation

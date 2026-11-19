@@ -2,7 +2,7 @@
 
 Maquette de référence de l'application opérateur (jalon M2), conçue pour l'écran du
 **Steam Deck (1280×800)**. Elle n'est pas encore codée : cette page sert de spécification à
-l'équipe qui réalisera l'interface en PySide6 ([ADR 0006](../decisions/0006-pyside6.md)).
+l'équipe qui réalisera l'interface en Rust/egui ([ADR 0007](../decisions/0007-interface-operateur-rust-egui.md)).
 
 ![Démonstration : balayage lidar, arrêt d'urgence, batterie faible, liaison perdue](ecran-controle.gif)
 
@@ -73,11 +73,12 @@ Autre état : [à l'arrêt](etat-arret.png).
 
 Le dossier [`source/`](source/) contient le balisage de la maquette (format Claude Design,
 `.dc.html`). Ce n'est **pas** du code de l'application : il sert de référence exacte pour
-les dimensions, couleurs et textes au moment de coder l'interface en PySide6.
+les dimensions, couleurs et textes au moment de coder l'interface en Rust/egui.
 
 ## Pour le codage (jalon M2)
 
-- Respecter le contrat de données et les règles de l'équipe interface (aucun import ROS dans
-  l'interface, logique séparée de l'affichage, aucun widget modifié hors du thread Qt).
+- Respecter le contrat de données et les règles de l'équipe interface (aucune dépendance ROS 2
+  dans l'interface, logique séparée de l'affichage, aucun état d'interface modifié hors du
+  thread de la boucle egui).
 - Reproduire les quatre états ci-dessus avec la source de démonstration, et générer les mêmes
   captures pour comparer.
