@@ -32,6 +32,9 @@ rosbags/
 *.db3
 *.mcap
 
+# --- Rust ---
+ui/target/
+
 # --- Éditeurs / OS ---
 .vscode/
 .idea/

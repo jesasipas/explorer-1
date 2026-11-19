@@ -22,7 +22,7 @@
 | Pilotes lidar / caméra / contrôleur | Raspberry Pi 5 (pile HiWonder) | Fournis par le fabricant |
 | Nœud de sécurité (M2) | Raspberry Pi 5 | Doit fonctionner même sans Wi-Fi |
 | SLAM, Nav2, exploration | Steam Deck | Choix volontaire pour le prototype ([ADR 0004](decisions/0004-calcul-sur-steam-deck-pour-le-prototype.md)) |
-| Interface opérateur | Steam Deck | — |
+| Interface opérateur | Steam Deck | Rust/egui, projet Cargo indépendant ([ADR 0007](decisions/0007-interface-operateur-rust-egui.md)) |
 
 Avant le jalon M5 (perte de liaison), SLAM, Nav2 et le gestionnaire de mission migrent sur le
 robot, sous réserve des mesures du jalon M1.

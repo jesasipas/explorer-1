@@ -1,6 +1,6 @@
 # 0006 — PySide6 pour l'interface opérateur
 
-- **Statut** : accepté
+- **Statut** : remplacé par [0007](0007-interface-operateur-rust-egui.md)
 - **Date** : 2026-10-29
 
 ## Contexte

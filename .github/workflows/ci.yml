@@ -35,3 +35,29 @@ jobs:
 
       - name: Pytest
         run: pytest -v
+
+  ui:
+    name: Interface (Rust)
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ui
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ui
+
+      - name: Formatage (rustfmt)
+        run: cargo fmt --check
+
+      - name: Lint (clippy)
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Tests
+        run: cargo test
